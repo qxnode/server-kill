@@ -2,7 +2,23 @@
 
 Suite de herramientas para protección física y lógica de un servidor Linux mediante cifrado LUKS, control de dispositivos USB y switches de emergencia.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ---
+## Arquitectura general
+
+```
+USB llave presente ──────────────────────────────► Sistema armado (usbkill)
+USB llave removida ──────────────────────────────► LUKS erase + reboot
+
+Heartbeat /live cada <24h ───────────────────────► Deadman reseteado
+Sin heartbeat por 24h ───────────────────────────► Alerta Discord (1h gracia)
+Sin respuesta en 1h ─────────────────────────────► LUKS erase + reboot
+
+Interfaz web /kill + token ──────────────────────► Kill manual inmediato
+
+USB conectado ──► USBGuard bloquea ──► Web UI + token ──► usbguard allow-device
+```
 
 ## Componentes
 
@@ -105,23 +121,6 @@ sudo bash setup_services.sh
 ```bash
 pip install flask
 apt install usbguard cryptsetup curl
-```
-
----
-
-## Arquitectura general
-
-```
-USB llave presente ──────────────────────────────► Sistema armado (usbkill)
-USB llave removida ──────────────────────────────► LUKS erase + reboot
-
-Heartbeat /live cada <24h ───────────────────────► Deadman reseteado
-Sin heartbeat por 24h ───────────────────────────► Alerta Discord (1h gracia)
-Sin respuesta en 1h ─────────────────────────────► LUKS erase + reboot
-
-Interfaz web /kill + token ──────────────────────► Kill manual inmediato
-
-USB conectado ──► USBGuard bloquea ──► Web UI + token ──► usbguard allow-device
 ```
 
 ---
