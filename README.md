@@ -4,6 +4,8 @@ A toolkit for physical and logical protection of a Linux server using LUKS encry
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[🇪🇸 Versión en Español](README.es.md)
+
 ---
 
 ## Architecture
